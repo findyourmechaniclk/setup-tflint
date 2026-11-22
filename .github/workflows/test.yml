@@ -1,3 +1,9 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 2 optimizations:
+# - [MEDIUM] Add concurrency group to "test.yml"
+# - [MEDIUM] 10 jobs clone the repo — consider artifact sharing
+# Estimated savings: ~3 min/run
+#
 name: Test
 
 on:
@@ -7,6 +13,10 @@ on:
       - master
   pull_request:
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 
